@@ -22,7 +22,10 @@ public class ArticoloDAOImpl implements ArticoloDAO {
 
 	@Override
 	public void update(Articolo input) throws Exception {
-		// TODO Auto-generated method stub
+		if (input == null) {
+			throw new Exception("Valore input non valido");
+		}
+		input = entityManager.merge(input);
 
 	}
 
@@ -36,7 +39,10 @@ public class ArticoloDAOImpl implements ArticoloDAO {
 
 	@Override
 	public void delete(Articolo input) throws Exception {
-		// TODO Auto-generated method stub
+		if (input == null || input.getId() < 1) {
+			throw new Exception("Problema valore di input");
+		}
+		entityManager.remove(entityManager.merge(input));
 
 	}
 

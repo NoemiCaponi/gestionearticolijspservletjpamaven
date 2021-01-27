@@ -57,7 +57,24 @@ public class ArticoloServiceImpl implements ArticoloService {
 
 	@Override
 	public void aggiorna(Articolo input) throws Exception {
-		// TODO Auto-generated method stub
+		EntityManager entityManager=LocalEntityManagerFactoryListener.getEntityManager();
+		
+		try {
+			entityManager.getTransaction().begin();
+			
+			articoloDao.setEntityManager(entityManager);
+			articoloDao.update(input);
+			
+			entityManager.getTransaction().commit();
+			
+		} catch (Exception e) {
+			entityManager.getTransaction().rollback();
+			e.printStackTrace();
+			throw e;
+		} finally {
+			LocalEntityManagerFactoryListener.closeEntityManager(entityManager);
+		}
+	
 	}
 
 	@Override
@@ -88,7 +105,22 @@ public class ArticoloServiceImpl implements ArticoloService {
 
 	@Override
 	public void rimuovi(Articolo input) throws Exception {
-		// TODO Auto-generated method stub
+		EntityManager entityManager = LocalEntityManagerFactoryListener.getEntityManager();
+		try {
+			
+			entityManager.getTransaction().begin();
+
+			articoloDao.setEntityManager(entityManager);
+			articoloDao.delete(input);
+
+			entityManager.getTransaction().commit();
+		} catch (Exception e) {
+			entityManager.getTransaction().rollback();
+			e.printStackTrace();
+			throw e;
+		} finally {
+			LocalEntityManagerFactoryListener.closeEntityManager(entityManager);
+		}
 	}
 
 	@Override
