@@ -9,6 +9,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.math.NumberUtils;
+
 @Entity
 @Table(name = "articolo")
 public class Articolo {
@@ -75,5 +78,6 @@ public class Articolo {
 	public void setDataArrivo(Date dataArrivo) {
 		this.dataArrivo = dataArrivo;
 	}
+
 
 }

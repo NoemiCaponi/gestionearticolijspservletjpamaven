@@ -16,10 +16,13 @@ import org.apache.commons.lang3.math.NumberUtils;
 
 import it.gestionearticolijspservletjpamaven.model.Articolo;
 import it.gestionearticolijspservletjpamaven.service.MyServiceFactory;
+import it.gestionearticolijspservletjpamaven.utility.Utility;
 
 @WebServlet("/ExecuteInsertArticoloServlet")
 public class ExecuteInsertArticoloServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
+	
 
 	public ExecuteInsertArticoloServlet() {
 		super();
@@ -37,11 +40,13 @@ public class ExecuteInsertArticoloServlet extends HttpServlet {
 		// questa variabile mi serve in quanto sfrutto in un colpo la validazione
 		// della data ed il suo parsing che non posso fare senza un try catch
 		// a questo punto lo incapsulo in un metodo apposito
-		Date dataArrivoParsed = parseDateArrivoFromString(dataArrivoStringParam);
-
+		Date dataArrivoParsed = Utility.parseDateArrivoFromString(dataArrivoStringParam);
+		
+		
 		// valido input tramite apposito metodo privato e se la validazione fallisce
 		// torno in pagina
-		if (!this.validateInput(codiceInputParam, descrizioneInputParam, prezzoInputStringParam, dataArrivoStringParam)
+		
+		if (!Utility.validateInput(codiceInputParam, descrizioneInputParam, prezzoInputStringParam, dataArrivoStringParam)
 				|| dataArrivoParsed == null) {
 			request.setAttribute("errorMessage", "Attenzione sono presenti errori di validazione");
 			request.getRequestDispatcher("/articolo/insert.jsp").forward(request, response);
@@ -68,25 +73,25 @@ public class ExecuteInsertArticoloServlet extends HttpServlet {
 
 	}
 
-	private boolean validateInput(String codiceInputParam, String descrizioneInputParam, String prezzoInputStringParam,
-			String dataArrivoStringParam) {
-		// prima controlliamo che non siano vuoti
-		if (StringUtils.isBlank(codiceInputParam) || StringUtils.isBlank(descrizioneInputParam)
-				|| !NumberUtils.isCreatable(prezzoInputStringParam) || StringUtils.isBlank(dataArrivoStringParam)) {
-			return false;
-		}
-		return true;
-	}
+//	private boolean validateInput(String codiceInputParam, String descrizioneInputParam, String prezzoInputStringParam,
+//			String dataArrivoStringParam) {
+//		// prima controlliamo che non siano vuoti
+//		if (StringUtils.isBlank(codiceInputParam) || StringUtils.isBlank(descrizioneInputParam)
+//				|| !NumberUtils.isCreatable(prezzoInputStringParam) || StringUtils.isBlank(dataArrivoStringParam)) {
+//			return false;
+//		}
+//		return true;
+//	}
 
-	private Date parseDateArrivoFromString(String dataArrivoStringParam) {
-		if (StringUtils.isBlank(dataArrivoStringParam))
-			return null;
-
-		try {
-			return new SimpleDateFormat("yyyy-MM-dd").parse(dataArrivoStringParam);
-		} catch (ParseException e) {
-			return null;
-		}
-	}
+//	private Date parseDateArrivoFromString(String dataArrivoStringParam) {
+//		if (StringUtils.isBlank(dataArrivoStringParam))
+//			return null;
+//
+//		try {
+//			return new SimpleDateFormat("yyyy-MM-dd").parse(dataArrivoStringParam);
+//		} catch (ParseException e) {
+//			return null;
+//		}
+//	}
 
 }
