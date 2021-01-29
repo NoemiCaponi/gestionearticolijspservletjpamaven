@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import it.gestionearticolijspservletjpamaven.model.Articolo;
 import it.gestionearticolijspservletjpamaven.service.MyServiceFactory;
+import it.gestionearticolijspservletjpamaven.utility.Utility;
 
 
 @WebServlet("/ExecuteModificaArticoloServlet")
@@ -30,20 +31,30 @@ public class ExecuteModificaArticoloServlet extends HttpServlet {
 		String descrizioneInput= request.getParameter("descrizione");
 		String prezzoInput= request.getParameter("prezzo");
 		String dataArrivoInput= request.getParameter("dataArrivo");
-		Date dataConvertita=null;
+		
+		Date dataArrivoParsed = Utility.parseDateArrivoFromString(dataArrivoInput);
 		
 		Long idArticoloConvertito=Long.parseLong(idArticoloDaModificare);
-//		Articolo articoloInstance = new Articolo(codiceInput, descrizioneInput,
-//				Integer.parseInt(prezzoInput), dataConvertita);
-		
-		
+		int prezzoConvertito=Integer.parseInt(prezzoInput);
 		
 		try {
 			Articolo articoloInstance=MyServiceFactory.getArticoloServiceInstance().caricaSingoloElemento(idArticoloConvertito);
-			dataConvertita=new SimpleDateFormat("yyyy-MM-dd").parse(dataArrivoInput);
+			if (!Utility.validateInput(codiceInput, descrizioneInput, prezzoInput, dataArrivoInput)
+					|| dataArrivoParsed == null) {
+				request.setAttribute("errorMessage", "Attenzione sono presenti errori di validazione");
+				request.setAttribute("articoloAttributeModifica", articoloInstance);
+				request.getRequestDispatcher("/articolo/update.jsp").forward(request, response);
+				return;
+			}
+			articoloInstance.setCodice(codiceInput);
+			articoloInstance.setDescrizione(descrizioneInput);
+			articoloInstance.setPrezzo(prezzoConvertito);
+			articoloInstance.setDataArrivo(dataArrivoParsed);
+			
 			MyServiceFactory.getArticoloServiceInstance().aggiorna(articoloInstance);
 			
 			request.setAttribute("successMessage", "Operazione effettuata con successo");
+			request.setAttribute("listaArticoliAttribute", MyServiceFactory.getArticoloServiceInstance().listAll());
 		} catch (Exception e) {
 			e.printStackTrace();
 			request.setAttribute("errorMessage", "Attenzione si è verificato un errore.");

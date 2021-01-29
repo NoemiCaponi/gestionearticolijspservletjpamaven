@@ -58,18 +58,18 @@
 							</div>
 							<div class="form-group col-md-3">
 								<label>Data di Arrivo<span class="text-danger">*</span></label>
-                        		<input class="form-control" id="dataArrivo" type="date" placeholder="dd/MM/yy" value="<%=articoloSelezionato.getDataArrivo() %>"
+                        		<input class="form-control" id="dataArrivo" type="date" value="<%=articoloSelezionato.getDataArrivo() %>"
                             		title="formato : gg/mm/aaaa"  name="dataArrivo" required>
 							</div>
 							<input type="hidden" name="articoloId" value="<%=articoloSelezionato.getId()%>">
 						</div>
 							
 						<button type="submit" name="submit" value="submit" id="submit" class="btn btn-primary">Modifica</button>
-					
+									
+			
 
 					</form>
-			
-			
+
 			</div>
 		</div>
 	</main>
