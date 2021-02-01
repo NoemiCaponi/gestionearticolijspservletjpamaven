@@ -125,8 +125,18 @@ public class ArticoloServiceImpl implements ArticoloService {
 
 	@Override
 	public List<Articolo> findByExample(Articolo input) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		EntityManager entityManager = LocalEntityManagerFactoryListener.getEntityManager();
+		try {
+			
+			articoloDao.setEntityManager(entityManager);
+
+			return articoloDao.findByExample(input);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			LocalEntityManagerFactoryListener.closeEntityManager(entityManager);
+		}
 	}
 
 }

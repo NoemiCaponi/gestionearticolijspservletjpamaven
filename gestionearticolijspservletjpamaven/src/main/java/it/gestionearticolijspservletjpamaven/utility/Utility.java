@@ -29,5 +29,17 @@ public class Utility {
 			return null;
 		}
 	}
+	
+	public static Integer parsePrezzoFromString(String prezzoStringParam) {
+		if (StringUtils.isBlank(prezzoStringParam))
+			return 0;
+
+		try {
+			return Integer.parseInt(prezzoStringParam);
+		} catch (Exception e) {
+			return 0;
+		}
+	}
+
 
 }

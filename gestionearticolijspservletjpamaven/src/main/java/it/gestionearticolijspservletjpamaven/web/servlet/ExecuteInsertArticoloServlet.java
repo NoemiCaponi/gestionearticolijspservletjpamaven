@@ -73,25 +73,5 @@ public class ExecuteInsertArticoloServlet extends HttpServlet {
 
 	}
 
-//	private boolean validateInput(String codiceInputParam, String descrizioneInputParam, String prezzoInputStringParam,
-//			String dataArrivoStringParam) {
-//		// prima controlliamo che non siano vuoti
-//		if (StringUtils.isBlank(codiceInputParam) || StringUtils.isBlank(descrizioneInputParam)
-//				|| !NumberUtils.isCreatable(prezzoInputStringParam) || StringUtils.isBlank(dataArrivoStringParam)) {
-//			return false;
-//		}
-//		return true;
-//	}
-
-//	private Date parseDateArrivoFromString(String dataArrivoStringParam) {
-//		if (StringUtils.isBlank(dataArrivoStringParam))
-//			return null;
-//
-//		try {
-//			return new SimpleDateFormat("yyyy-MM-dd").parse(dataArrivoStringParam);
-//		} catch (ParseException e) {
-//			return null;
-//		}
-//	}
 
 }
