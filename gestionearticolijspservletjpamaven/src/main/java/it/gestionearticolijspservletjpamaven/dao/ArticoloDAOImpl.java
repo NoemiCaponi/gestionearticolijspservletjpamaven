@@ -7,7 +7,6 @@ import java.util.Map;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
-import javax.persistence.TypedQuery;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -99,25 +98,7 @@ public class ArticoloDAOImpl implements ArticoloDAO {
 		return query.getResultList();
 		
 		
-		
-		
-//		String query="select * from articolo where 1=1";
-//		if(input.getDescrizione()!=null && input.getDescrizione().equals("")) {
-//			query+=" and descrizione='" + input.getDescrizione() +"' ";
-//		}
-//		if(input.getCodice()!=null && input.getCodice().equals("")) {
-//			query+=" and codice='" + input.getCodice() +"' ";
-//		}
-//		if(input.getPrezzo()!=null) {
-//			query+=" and prezzo='" + input.getPrezzo() +"' ";
-//		}
-//		if(input.getDataArrivo()!=null) {
-//			query += " and dataarrivo'" + new java.sql.Date(input.getDataArrivo().getTime()) + "' ";
-//		}
-//		
-//		return entityManager.createQuery(query, Articolo.class).getResultList();
-//		
-		
+				
 		
 	}
 
